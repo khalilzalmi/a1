@@ -22,7 +22,7 @@ jobs:
 
       - name: Set Password for runneradmin
         run: |
-          net user runneradmin 123456
+          net user runneradmin Passw0rd!
 
       - name: Show Info
         run: |
