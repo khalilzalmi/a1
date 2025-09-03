@@ -13,7 +13,7 @@ jobs:
 
       - name: Run Cloudflared Tunnel
         run: |
-          Start-Process -NoNewWindow -FilePath "cloudflared.exe" -ArgumentList "tunnel --url http://localhost:3389"
+          Start-Process -FilePath "cloudflared.exe" -ArgumentList "tunnel --url http://localhost:3389"
 
       - name: Enable RDP
         run: |
@@ -24,9 +24,6 @@ jobs:
         run: |
           net user runneradmin Passw0rd!
 
-      - name: Show Info
+      - name: Keep Alive (6 hours)
         run: |
-          echo "✅ RDP Enabled!"
-          echo "👉 User: runneradmin"
-          echo "👉 Password: 123456"
-          echo "👉 Tunnel URL logs me upar Cloudflared step me dikh raha hai."
+          ping -t 127.0.0.1 >nul
