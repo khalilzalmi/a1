@@ -1,22 +1,26 @@
-a1/.github/workflows
-/
-main.yml
-in
-main
+name: Free RDP with Cloudflare
 
-Edit
+on:
+  workflow_dispatch:
 
-Preview
-Indent mode
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Download Cloudflared
+        run: |
+          curl -L -o cloudflared.exe https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe
 
-Spaces
-Indent size
+      - name: Run Cloudflared Tunnel
+        run: |
+          Start-Process -NoNewWindow -FilePath "cloudflared.exe" -ArgumentList "tunnel --url http://localhost:3389"
 
-2
-Line wrap mode
+      - name: Enable RDP
+        run: |
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -Value 0
+          Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
-No wrap
-Editing main.yml file contents
-
-
-1
+      - name: Show Info
+        run: |
+          echo "✅ RDP Enabled!"
+          echo "👉 Tunnel URL logs me upar dikh raha hoga."
