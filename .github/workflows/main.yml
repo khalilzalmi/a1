@@ -20,7 +20,13 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
+      - name: Set Password for runneradmin
+        run: |
+          net user runneradmin 123456
+
       - name: Show Info
         run: |
           echo "✅ RDP Enabled!"
-          echo "👉 Tunnel URL logs me upar dikh raha hoga."
+          echo "👉 User: runneradmin"
+          echo "👉 Password: 123456"
+          echo "👉 Tunnel URL logs me upar Cloudflared step me dikh raha hai."
